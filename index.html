@@ -1,78 +1,235 @@
-
 <!doctype html>
-<html lang="ja"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>上り大容量通信 キャンペーン｜Misora Connect</title>
 <style>
-:root{--ink:#0b1220;--muted:#5b6b7f;--line:#e6edf5;--panel:#fff;--bg:#f8fbff;--brand:#0ea5e9;--brand-dark:#0369a1;--ok:#10b981;--shadow:0 12px 28px rgba(2,6,23,.08);--radius:18px;--danger:#ef4444}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff 0%, var(--bg) 100%);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.75}
-.container{max-width:1160px;margin:auto;padding:0 24px}.brand{display:flex;align-items:center;gap:12px}.brand img{height:44px}
-header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-.hero-wrap{position:relative;overflow:hidden;background:linear-gradient(135deg,#0ea5e9 0%, #0369a1 100%);}
-.hero{position:relative;z-index:1;text-align:center;color:#fff;padding:80px 24px;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.hero h1{font-size:clamp(32px,6vw,56px);font-weight:900;margin:.5rem 0}
-.hero p{max-width:860px;font-size:1.15rem;opacity:.95}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:999px;font-weight:900;text-decoration:none}
-.btn.primary{background:#fff;color:#0369a1;box-shadow:var(--shadow)}
-.section{padding:56px 0}.grid{display:grid;gap:18px}.plans{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:24px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;position:relative}
-.ribbon{position:absolute;top:14px;right:14px;background:var(--danger);color:#fff;font-weight:900;border-radius:999px;padding:.3rem .7rem;font-size:.85rem}
-.price-block{display:grid;gap:6px;margin:8px 0 6px}.now{display:flex;align-items:baseline;gap:6px}.now .num{font-size:2.2rem;font-weight:900}
-.was{color:#64748b;text-decoration:line-through}.save{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--ok)}
+:root{
+  --ink:#0b1220;--muted:#5b6b7f;--line:#e6edf5;--bg:#f8fbff;
+  --brand:#0ea5e9;--brand-dark:#0369a1;--shadow:0 8px 20px rgba(0,0,0,.08);
+  --danger:#ef4444;
+  --green-light:#d1fae5;--green-main:#6ee7b7;
+  --orange-light:#ffedd5;--orange-main:#fdba74;
+  --purple-light:#ede9fe;--purple-main:#c4b5fd;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background:linear-gradient(180deg,#fff 0%, var(--bg) 100%);
+  color:var(--ink);
+  line-height:1.75;
+}
+.container{max-width:1160px;margin:auto;padding:0 24px}
+
+/* ===== ロゴ ===== */
+.top-logo{text-align:center;padding:28px 0 12px}
+.top-logo img{width:min(480px,90%);height:auto}
+
+/* ===== HERO ===== */
+.hero-wrap{position:relative;overflow:hidden}
+.hero{
+  position:relative;
+  min-height:560px;
+  padding:94px 24px 90px;
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:#0b1220;
+}
+.hero .hero-bg{
+  position:absolute;inset:0;
+  background:url('cameraimage.png') center/cover no-repeat;
+  opacity:.32;
+  z-index:0;
+  pointer-events:none;
+}
+.hero>*:not(.hero-bg){position:relative;z-index:1}
+.hero h1{
+  font-size:clamp(42px,8vw,78px);
+  font-weight:900;
+  margin:0 0 12px;
+  color:#0b1220;
+  text-shadow:0 4px 10px rgba(255,255,255,.85);
+}
+.hero p{
+  font-size:1.2rem;
+  color:#1f2937;
+  margin:0 0 36px;
+}
+
+/* ===== 3ポイント ===== */
+.feature-points{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  width:100%;
+  max-width:1160px;
+}
+.point{
+  background:rgba(255,255,255,.95);
+  border:1px solid rgba(3,105,161,.15);
+  border-radius:16px;
+  padding:24px 20px;
+  text-align:center;
+  font-size:1.2rem;
+  font-weight:800;
+  color:#0369a1;
+  box-shadow:0 6px 18px rgba(0,0,0,.1);
+  display:flex;align-items:center;justify-content:center;
+  min-height:84px;
+  transition:transform .25s,background .25s,box-shadow .25s;
+}
+.point:hover{
+  transform:translateY(-4px);
+  background:#e0f2fe;
+  box-shadow:0 10px 24px rgba(3,105,161,.15);
+}
+@media(max-width:900px){
+  .feature-points{grid-template-columns:1fr}
+  .point{font-size:1.08rem}
+}
+
+/* ===== 告知バナー（白文字・2段） ===== */
+.notice-banner{
+  background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6);
+  text-align:center;
+  padding:20px 24px;
+  margin-top:28px;
+  border-radius:14px;
+  font-weight:900;
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+.notice-banner p{
+  margin:6px 0;
+  font-size:1.1rem;
+  letter-spacing:.4px;
+  color:#ffffff;
+  text-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+
+/* ===== プランカード ===== */
+.section{padding:56px 0}
+.grid{display:grid;gap:18px}
+.plans{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:24px}
+.card{border-radius:18px;box-shadow:var(--shadow);padding:22px;position:relative;color:#1f2937;transition:transform .2s}
+.card:hover{transform:translateY(-4px)}
+.card h3{margin-top:0;font-weight:800}
+.card.green{background:linear-gradient(180deg,var(--green-light),var(--green-main))}
+.card.orange{background:linear-gradient(180deg,var(--orange-light),var(--orange-main))}
+.card.purple{background:linear-gradient(180deg,var(--purple-light),var(--purple-main))}
+.ribbon{position:absolute;top:14px;right:14px;background:var(--danger);color:#fff;font-weight:900;border-radius:999px;padding:.3rem .7rem;font-size:.85rem;box-shadow:0 3px 8px rgba(239,68,68,.35)}
+.price-block{display:grid;gap:6px;margin:8px 0 6px}
+.now{display:flex;align-items:baseline;gap:6px}
+.now .num{font-size:2.2rem;font-weight:900}
+.was{color:#475569;text-decoration:line-through}
+.save{display:flex;align-items:center;gap:8px;font-weight:800;color:#0369a1}
+
+/* ===== 案内エリア ===== */
 .notice-highlight{margin-top:18px;padding:20px;border-radius:16px;box-shadow:var(--shadow);
   background:linear-gradient(135deg,#0ea5e9 0%, #0369a1 100%);color:#fff}
 .notice-head{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.15rem}
-.notice-sub{margin-top:10px;background:#fff;color:#0b1220;border-radius:12px;padding:12px 14px;border:1px solid #dbeafe}
-.terms{margin-top:14px;padding:16px;border:1px solid #e5e7eb;background:#f8fafc;border-radius:12px;color:#1f2937}
+.notice-sub{margin-top:10px;background:#fff;color:#0b1220;border-radius:12px;padding:12px 14px;border:1px solid #dbeafe;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn-inline{display:inline-block;background:#0369a1;color:#fff;padding:10px 18px;border-radius:999px;font-weight:900;text-decoration:none}
+
+/* ===== 利用ケース ===== */
 .media{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));text-align:center}
 .media-heading{text-align:center;font-size:1.6rem;font-weight:900;margin-bottom:.5rem}
 .media-desc{margin:0 auto 1.2rem;max-width:760px;text-align:center;color:#5b6b7f}
-.thumb{border-radius:14px;border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow)}
-.thumb img{width:100%;height:280px;object-fit:cover;display:block}.thumb p{margin:10px 0 0;font-weight:800}
+.thumb{border-radius:14px;border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow);background:#fff}
+.thumb img{width:100%;height:280px;object-fit:cover;display:block}
+.thumb p{margin:10px 0 0;font-weight:800}
 
-/* Contact CTA */
-.contact-cta{background:linear-gradient(135deg,#0ea5e9,#0369a1);color:#fff;text-align:center;padding:60px 24px;margin-top:60px}
-.contact-cta h2{font-size:1.9rem;font-weight:900;margin-bottom:12px}
-.contact-cta p{font-size:1.1rem;opacity:.95;margin-bottom:28px}
-.btn-contact{display:inline-block;background:#fff;color:#0369a1;padding:16px 40px;border-radius:999px;font-weight:900;font-size:1.1rem;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.15);transition:all .3s}
-.btn-contact:hover{background:#0369a1;color:#fff;transform:translateY(-3px)}
+/* ===== お問い合わせCTA ===== */
+.contact-cta{
+  background:#43C6FA;
+  color:#fff;
+  text-align:center;
+  padding:60px 24px;
+  margin-top:60px;
+}
+.contact-cta h2{font-size:2rem;font-weight:900;margin-bottom:16px;text-shadow:0 2px 6px rgba(0,0,0,.25)}
+.contact-cta p{font-size:1.1rem;margin-bottom:32px}
+.btn-contact{background:#fff;color:#0369a1;padding:14px 32px;border-radius:999px;font-weight:900;text-decoration:none;font-size:1.05rem;box-shadow:0 6px 14px rgba(0,0,0,.15);transition:all .25s}
+.btn-contact:hover{background:#e0f2fe;transform:translateY(-3px)}
 
+/* ===== 注意事項 ===== */
+.terms{margin-top:40px;padding:20px;border:1px solid #e5e7eb;background:#f8fafc;border-radius:12px;color:#1f2937;line-height:1.8}
+.terms h3{margin-top:0;font-size:1.1rem;font-weight:900;border-left:4px solid #0ea5e9;padding-left:8px;color:#0369a1}
+
+/* ===== FOOTER ===== */
 footer{border-top:1px solid var(--line);background:#fff;text-align:center;padding:24px 0;color:#64748b;font-size:.95rem}
-</style></head>
+</style>
+</head>
 <body>
-<header><div class="container nav"><div class="brand"><img src="image (12).png" alt="Misora Connect ロゴ"><strong>Misora Connect</strong></div></div></header>
+
+<div class="top-logo">
+  <img src="misora-connect-logo.png" alt="Misora Connect ロゴ">
+</div>
 
 <div class="hero-wrap">
-  <section class="hero">
+  <section class="hero container">
+    <div class="hero-bg" aria-hidden="true"></div>
+
     <h1>上り大容量通信 キャンペーン</h1>
     <p>映像・サイネージ・センシングなどの常時アップロードに最適です。</p>
-    <a href="#plans" class="btn primary">キャンペーンを見る</a>
+
+    <div class="feature-points">
+      <div class="point">📶 1回線から購入可能</div>
+      <div class="point">🧪 検証SIMのご用意</div>
+      <div class="point">💡 お客様毎の柔軟な料金プラン</div>
+    </div>
+
+    <div class="notice-banner">
+      <p>★このキャンペーンをご覧いただいた方限定★</p>
+      <p>★26年2月末までのお申込み限定！★</p>
+    </div>
   </section>
 </div>
 
 <main>
 <section id="plans" class="container section">
-  <h2 style="font-size:1.7rem;font-weight:900">キャンペーン価格とおトク額</h2>
+  <h2 style="font-size:1.8rem;font-weight:900;text-align:center;margin-bottom:24px">キャンペーン価格とおトク額</h2>
+
   <div class="grid plans">
-    <div class="card"><span class="ribbon">約51%OFF</span><h3>上り10GBプラン</h3>
-      <div class="price-block"><div class="now"><span class="num">350</span><span>円/月（税抜）</span></div>
-      <div class="was">通常価格：720円/月（税抜）</div><div class="save">▲370円 / 月おトク（年間 4,440円）</div></div></div>
-    <div class="card"><span class="ribbon">約51%OFF</span><h3>上り100GBプラン</h3>
-      <div class="price-block"><div class="now"><span class="num">2,200</span><span>円/月（税抜）</span></div>
-      <div class="was">通常価格：4,500円/月（税抜）</div><div class="save">▲2,300円 / 月おトク（年間 27,600円）</div></div></div>
-    <div class="card"><span class="ribbon">約50%OFF</span><h3>上り300GBプラン</h3>
-      <div class="price-block"><div class="now"><span class="num">5,800</span><span>円/月（税抜）</span></div>
-      <div class="was">通常価格：11,500円/月（税抜）</div><div class="save">▲5,700円 / 月おトク（年間 68,400円）</div></div></div>
+    <div class="card green">
+      <span class="ribbon">約51%OFF</span>
+      <h3>上り10GBプラン</h3>
+      <div class="price-block">
+        <div class="now"><span class="num">350</span><span>円/月（税抜）</span></div>
+        <div class="was">通常価格：720円/月（税抜）</div>
+        <div class="save">▲370円 / 月おトク（年間 4,440円）</div>
+      </div>
+    </div>
+
+    <div class="card orange">
+      <span class="ribbon">約51%OFF</span>
+      <h3>上り100GBプラン</h3>
+      <div class="price-block">
+        <div class="now"><span class="num">2,200</span><span>円/月（税抜）</span></div>
+        <div class="was">通常価格：4,500円/月（税抜）</div>
+        <div class="save">▲2,300円 / 月おトク（年間 27,600円）</div>
+      </div>
+    </div>
+
+    <div class="card purple">
+      <span class="ribbon">約50%OFF</span>
+      <h3>上り300GBプラン</h3>
+      <div class="price-block">
+        <div class="now"><span class="num">5,800</span><span>円/月（税抜）</span></div>
+        <div class="was">通常価格：11,500円/月（税抜）</div>
+        <div class="save">▲5,700円 / 月おトク（年間 68,400円）</div>
+      </div>
+    </div>
   </div>
 
-  <div class="notice-highlight"><div class="notice-head"><span>★</span><strong>その他、500GBまで多数のキャンペーンプランをご用意！</strong></div><div class="notice-sub">まずはお客様のご利用想定をお聞かせください。</div></div>
-
-  <div class="terms"><h3>【ご利用前提と注意事項】</h3>
-  <p>※初期費用として3,300円/回線(税込)が発生いたします。</p>
-  <p>※本プランは上り9割：下り通信1割のご利用を想定しております。</p>
-  <p>※月間容量超過後、256kbpsの速度制限が発生いたします。</p>
-  <p>※本キャンペーン価格はご契約～解約まで適用となります。</p>
-  <p>※本キャンペーンは法人契約のみでのご提供となります。</p></div>
+  <div class="notice-highlight">
+    <div class="notice-head"><span>★</span><strong>その他、500GBまで多数のキャンペーンプランをご用意！</strong></div>
+    <div class="notice-sub">
+      <span>まずはお客様のご利用想定をお聞かせください。</span>
+      <a class="btn-inline" href="https://misora-connect.com/contact/" target="_blank" rel="noopener">お問い合わせ</a>
+    </div>
+  </div>
 </section>
 
 <section id="usecase" class="container section">
@@ -90,8 +247,22 @@ footer{border-top:1px solid var(--line);background:#fff;text-align:center;paddin
   <p>導入前のご相談・料金のお見積りなど、担当スタッフが丁寧にご案内します。</p>
   <a href="https://misora-connect.com/contact/" target="_blank" class="btn-contact">今すぐお問い合わせ</a>
 </section>
+
+<section class="container">
+  <div class="terms">
+    <h3>【ご利用前提と注意事項】</h3>
+    <p>※初期費用として3,300円/回線(税込)が発生いたします。</p>
+    <p>※本プランは上り9割：下り通信1割のご利用を想定しております。</p>
+    <p>※月間容量超過後、256kbpsの速度制限が発生いたします。</p>
+    <p>※本キャンペーン価格はご契約～解約まで適用となります。</p>
+    <p>※本キャンペーンは法人契約のみでのご提供となります。</p>
+  </div>
+</section>
 </main>
 
 <footer>© <span id="y"></span> Misora Connect</footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
-</body></html>
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
